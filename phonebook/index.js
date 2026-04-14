@@ -27,7 +27,11 @@ let persons = [
 ];
 
 app.get('/info', (request, response) => {
-  response.send(`<p>Phonebook has info for ${persons.length} people</p>`)
+  const requestTime = new Date(Date.now()).toString()
+  response.send(`
+    <p>Phonebook has info for ${persons.length} people</p>
+    <p>${requestTime}</p>
+    `)
 })
 
 app.get('/api/persons', (request, response) => {
