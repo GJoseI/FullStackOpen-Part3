@@ -34,9 +34,9 @@ if (process.argv.length === 5) {
 
 if (process.argv.length === 3) {
   console.log("phonebook:");
-  Note.find({}).then((result) => {
-    result.forEach((note) => {
-      console.log(note);
+  Person.find({}).then((result) => {
+    result.forEach((person) => {
+      console.log(`${person.name} ${person.number}`);
     });
     mongoose.connection.close();
   });
