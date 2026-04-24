@@ -1,7 +1,7 @@
+require('dotenv').config()
 const express = require("express");
 const morgan = require("morgan")
 const app = express();
-require('dotenv').config()
 const Person = require('./models/person')
 
 app.use(express.json());
@@ -78,21 +78,16 @@ app.post('/api/persons', (request, response) => {
     return response.status(400).json({ 
       error: 'name or number missing' 
     })
-  } else if(persons.some(person => person.name === body.name)){
-    return response.status(400).json({ 
-      error: 'name must be unique' 
-    })
-  } 
-
-  const person = {
-    id: generateId(),
-    name: body.name,
-    number: body.number,
   }
 
-  persons = persons.concat(person)
+  const person = new Person ({
+    name: body.name,
+    number: body.number,
+  })
 
-  response.json(person)
+  person.save().then(savedPerson =>{
+    response.json(savedPerson)
+  })
 })
 
 const PORT = process.env.PORT
